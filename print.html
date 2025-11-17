@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Buddy System Allocation – PRINT</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: white;
+        padding: 25px;
+    }
+
+    /* ================================
+       BUTTON KEMBALI (tidak ter-print)
+    =================================*/
+    .back-btn {
+        display: inline-block;
+        margin-bottom: 20px;
+        padding: 10px 18px;
+        background: #2b9f7e;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 15px;
+    }
+    .back-btn:hover {
+        background: #257f66;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    h2 {
+        margin-top: 40px;
+        background: #b7e2d4;
+        padding: 10px;
+        border-radius: 5px;
+        color: #2c5d52;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        background: #ffffff;
+        font-size: 15px;
+    }
+
+    th, td {
+        border: 1px solid #6ea597;
+        padding: 10px;
+        text-align: center;
+    }
+
+    th {
+        background: #b7e2d4;
+        font-weight: bold;
+    }
+
+    /* =======================================
+       MODE PRINT — A3 LANDSCAPE & COLORS FIX
+    ========================================*/
+    @media print {
+
+        /* Kembalikan halaman menjadi full */
+        body { margin: 0; padding: 20px; }
+
+        /* A3 landscape */
+        @page {
+            size: A4 landscape;
+            margin: 10mm;
+        }
+
+        /* Warna tetap muncul saat PDF */
+        * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        /* Sembunyikan tombol kembali */
+        .back-btn {
+            display: none !important;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- BUTTON KEMBALI -->
+<a href="index.html" class="back-btn">← Kembali ke Halaman Utama</a>
+
+<h1>Buddy System Allocation – Binary & Fibonacci</h1>
+
+
+<!-- ======================================================== -->
+<!--        TABLE 1 — BINARY BUDDY SYSTEM                      -->
+<!-- ======================================================== -->
+
+<h2>1. Binary Buddy System (1024 KB)</h2>
+
+<table>
+    <tr>
+        <th>0</th>
+        <th>128k</th>
+        <th>256k</th>
+        <th>512k</th>
+        <th>1024k</th>
+    </tr>
+
+    <tr><td>Start</td><td colspan="4">1024K</td></tr>
+
+    <tr><td>P1 = 100K</td><td>P1</td><td>128</td><td>256</td><td>512</td></tr>
+
+    <tr><td>P2 = 30K</td><td>P1</td><td>P2</td><td>64</td><td>256 / 512</td></tr>
+
+    <tr><td>P3 = 200K</td><td>P1</td><td>P2</td><td>64</td><td>P3 / 128 / 512</td></tr>
+
+    <tr><td>P4 = 80K</td><td>P1</td><td>P2</td><td>64</td><td>P3 / P4 / 256</td></tr>
+
+    <tr><td>P2 Ends</td><td>P1</td><td>32</td><td>64</td><td>P3 / P4 / 256</td></tr>
+
+    <tr><td>P5 = 200K</td><td>P1</td><td>32</td><td>64</td><td>P3 / P4 / P5</td></tr>
+
+    <tr><td>P4 Ends</td><td>P1</td><td>32</td><td>64</td><td>P3 / 128 / P5</td></tr>
+
+    <tr><td>P1 Ends</td><td>128</td><td>32</td><td>64</td><td>P3 / 128 / P5</td></tr>
+
+    <tr><td>P3 Ends</td><td>128</td><td>32</td><td>64</td><td>256 / 128 / P5</td></tr>
+
+    <tr><td>P5 Ends</td><td>128</td><td>32</td><td>64</td><td>512</td></tr>
+
+    <tr><td>End</td><td colspan="4">1024K</td></tr>
+</table>
+
+
+<!-- ======================================================== -->
+<!--        TABLE 2 — FIBONACCI BUDDY SYSTEM                   -->
+<!-- ======================================================== -->
+
+<h2>2. Fibonacci Buddy System (1024 KB)</h2>
+
+<table>
+    <tr>
+        <th>0</th>
+        <th>144k</th>
+        <th>233k</th>
+        <th>377k</th>
+        <th>610k</th>
+    </tr>
+
+    <tr><td>Start</td><td colspan="4">987K</td></tr>
+
+    <tr><td>P1 = 100K</td><td>P1 (144K)</td><td>233K</td><td>377K</td><td>233K</td></tr>
+
+    <tr><td>P2 = 30K</td><td>P1</td><td>P2 (34K)</td><td>55K</td><td>610K</td></tr>
+
+    <tr><td>P3 = 200K</td><td>P1</td><td>P2</td><td>P3 (233K)</td><td>377K</td></tr>
+
+    <tr><td>P4 = 80K</td><td>P1</td><td>P2</td><td>P3</td><td>P4 (89K)</td></tr>
+
+    <tr><td>P2 Ends</td><td>P1</td><td>34K</td><td>P3</td><td>P4</td></tr>
+
+    <tr><td>P5 = 200K</td><td>P1</td><td>34K</td><td>P3</td><td>P5 (233K)</td></tr>
+
+    <tr><td>P4 Ends</td><td>P1</td><td>34K</td><td>P3</td><td>144K</td></tr>
+
+    <tr><td>P1 Ends</td><td>144K</td><td>34K</td><td>P3</td><td>144K</td></tr>
+
+    <tr><td>P3 Ends</td><td>144K</td><td>34K</td><td>233K</td><td>144K</td></tr>
+
+    <tr><td>P5 Ends</td><td>144K</td><td>34K</td><td>233K</td><td>610K</td></tr>
+
+    <tr><td>End</td><td colspan="4">987K</td></tr>
+</table>
+
+
+<!-- AUTO PRINT -->
+<script>
+    window.onload = () => window.print();
+</script>
+
+</body>
+</html>
